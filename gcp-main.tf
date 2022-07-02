@@ -18,8 +18,8 @@ resource "google_sql_database_instance" "playlist" {
     inline = [
       "sudo yum update -y",
       "sudo yum install mysql -y",
-      "export PASSWORD=`openssl rand -base64 32`; echo \"Root password is : $PASSWORD\"",
-      "echo \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$PASSWORD'\" \  | sudo mysql -u root",
+      "export PASSWORD='openssl rand -base64 32'; echo \"Root password is : $PASSWORD\"",
+      "echo \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$PASSWORD'\"  | sudo mysql -u root",
       "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"CREATE USER 'playuser'@'%' IDENTIFIED BY '123456';\"",
       "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"GRANT ALL PRIVILEGES ON *.* TO 'playuser'@'%' WITH GRANT OPTION;\"",
       "mysql -h 127.0.0.1 -P 3306 -u playuser -p123456 < /opt/app/Playlist.sql"
