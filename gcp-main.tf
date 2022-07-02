@@ -22,7 +22,7 @@ resource "google_sql_database_instance" "playlist" {
       "echo \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$PASSWORD'\"  | sudo mysql -u root",
       "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"CREATE USER 'playuser'@'%' IDENTIFIED BY '123456';\"",
       "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"GRANT ALL PRIVILEGES ON *.* TO 'playuser'@'%' WITH GRANT OPTION;\"",
-      "mysql -h 127.0.0.1 -P 3306 -u playuser -p123456 < /opt/app/Playlist.sql"
+      "mysql -h 127.0.0.1 -P 3306 -u playuser -p123456 < playlist.sql"
     ]
   }
 
