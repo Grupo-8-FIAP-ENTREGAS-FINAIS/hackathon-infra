@@ -23,8 +23,8 @@ resource "google_sql_database_instance" "playlist2" {
       "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"CREATE USER 'playuser'@'%' IDENTIFIED BY '123456';\"",
       "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"GRANT ALL PRIVILEGES ON *.* TO 'playuser'@'%' WITH GRANT OPTION;\"",
       "mysql -h 127.0.0.1 -P 3306 -u playuser -p123456 < playlist.sql"
-    ] */
-  }
+    ] 
+  } */
 
   root_password = "123456"
   deletion_protection  = "false"
