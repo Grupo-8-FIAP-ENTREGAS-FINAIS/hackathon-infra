@@ -1,6 +1,6 @@
 resource "google_sql_database" "database" {
   name     = "playlist2"
-  instance = google_sql_database_instance.playlist.name
+  instance = google_sql_database_instance.playlist2.name
 }
 
 # See versions at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#database_version
