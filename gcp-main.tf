@@ -1,11 +1,11 @@
 resource "google_sql_database" "database" {
-  name     = "playlist2"
-  instance = google_sql_database_instance.playlist2.name
+  name     = "playlist3"
+  instance = google_sql_database_instance.playlist3.name
 }
 
 # See versions at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#database_version
-resource "google_sql_database_instance" "playlist2" {
-  name             = "playlist2-instance"
+resource "google_sql_database_instance" "playlist3" {
+  name             = "playlist3-instance"
   region           = "us-central1"
   database_version = "MYSQL_8_0"
   settings {
