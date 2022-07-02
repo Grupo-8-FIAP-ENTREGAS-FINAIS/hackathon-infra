@@ -23,3 +23,12 @@ resource "google_sql_user" "users" {
   instance = google_sql_database_instance.playlist.name
   password = "123456"
 }
+
+resource "google_artifact_registry_repository" "hackthon" {
+  provider = google-beta
+
+  location = "us-central1"
+  repository_id = "hackthon-repo"
+  description = "Imagens Docker"
+  format = "DOCKER"
+}
