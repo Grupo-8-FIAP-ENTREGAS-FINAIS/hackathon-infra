@@ -4,7 +4,7 @@ resource "google_sql_database" "database" {
 }
 
 # See versions at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#database_version
-resource "google_sql_database_instance" "instance" {
+resource "google_sql_database_instance" "playlist" {
   name             = "playlist-instance"
   region           = "us-central1"
   database_version = "MYSQL_8_0"
@@ -20,6 +20,6 @@ resource "google_sql_database_instance" "instance" {
 
 resource "google_sql_user" "users" {
   name     = "playuser"
-  instance = "${google_sql_database_instance.playlist.name}"
+  instance = google_sql_database_instance.playlist.name
   password = "123456"
 }
