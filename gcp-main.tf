@@ -13,10 +13,10 @@ resource "google_sql_database_instance" "playlist3" {
     ip_configuration {
             ipv4_enabled = true
             # require_ssl = true
-            authorized_networks = {
+            authorized_networks = [{
                 name = "Public"
                 value = "0.0.0.0/0"
-            }            
+            }]     
         }
   }
    #provisioner "local-exec" {
