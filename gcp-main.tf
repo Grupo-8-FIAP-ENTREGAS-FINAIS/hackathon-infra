@@ -14,7 +14,7 @@ resource "google_sql_database_instance" "playlist2" {
    #provisioner "local-exec" {
    # command = "mysql --host=${module.db.this_db_instance_address} --port=${var.dbport} --user=${var.dbusername} --password=${var.dbpassword} --database=${var.dbname} < ${file(${path.module}/init/db_structure.sql)}"
   #}
-    provisioner "remote-exec" {
+/*     provisioner "remote-exec" {
     inline = [
       "sudo yum update -y",
       "sudo yum install mysql -y",
@@ -23,7 +23,7 @@ resource "google_sql_database_instance" "playlist2" {
       "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"CREATE USER 'playuser'@'%' IDENTIFIED BY '123456';\"",
       "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"GRANT ALL PRIVILEGES ON *.* TO 'playuser'@'%' WITH GRANT OPTION;\"",
       "mysql -h 127.0.0.1 -P 3306 -u playuser -p123456 < playlist.sql"
-    ]
+    ] */
   }
 
   root_password = "123456"
