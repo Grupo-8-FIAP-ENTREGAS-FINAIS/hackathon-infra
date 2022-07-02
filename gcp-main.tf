@@ -10,6 +10,14 @@ resource "google_sql_database_instance" "playlist3" {
   database_version = "MYSQL_8_0"
   settings {
     tier = "db-f1-micro"
+    ip_configuration {
+            ipv4_enabled = true
+            # require_ssl = true
+            authorized_networks = {
+                name = "Public"
+                value = "0.0.0.0/0"
+            }            
+        }
   }
    #provisioner "local-exec" {
    # command = "mysql --host=${module.db.this_db_instance_address} --port=${var.dbport} --user=${var.dbusername} --password=${var.dbpassword} --database=${var.dbname} < ${file(${path.module}/init/db_structure.sql)}"
@@ -26,14 +34,7 @@ resource "google_sql_database_instance" "playlist3" {
     ] 
   } */
 
-  ip_configuration {
-            ipv4_enabled = true
-            # require_ssl = true
-            authorized_networks = {
-                name = "Public"
-                value = "0.0.0.0/0"
-            }            
-        }
+  
 
   deletion_protection  = "false"
 }
