@@ -12,7 +12,7 @@ resource "google_sql_database_instance" "instance" {
     tier = "db-f1-micro"
   }
    provisioner "local-exec" {
-    command = "PGPASSWORD=123456 psql -f playlist.sql -p 3306 -U playuser playlist-instance"
+    command = "PGPASSWORD=123456 psql -f playlist.sql -p 3306 -U root playlist-instance"
   }
   root_password = "123456"
   deletion_protection  = "false"
@@ -20,6 +20,6 @@ resource "google_sql_database_instance" "instance" {
 
 resource "google_sql_user" "users" {
   name     = "playuser"
-  instance = playlist-instance
+  instance = google_sql_database_instance.main.name
   password = "123456"
 }
