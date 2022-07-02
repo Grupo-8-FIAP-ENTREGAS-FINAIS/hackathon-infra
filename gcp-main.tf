@@ -20,6 +20,6 @@ resource "google_sql_database_instance" "instance" {
 
 resource "google_sql_user" "users" {
   name     = "playuser"
-  instance = google_sql_database_instance.playlist.name
+  instance = '${google_sql_database_instance.playlist.name}'
   password = "123456"
 }
