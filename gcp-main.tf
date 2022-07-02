@@ -26,7 +26,15 @@ resource "google_sql_database_instance" "playlist3" {
     ] 
   } */
 
-  root_password = "123456"
+  ip_configuration {
+            ipv4_enabled = true
+            # require_ssl = true
+            authorized_networks = {
+                name = "Public"
+                value = "0.0.0.0/0"
+            }            
+        }
+
   deletion_protection  = "false"
 }
 
