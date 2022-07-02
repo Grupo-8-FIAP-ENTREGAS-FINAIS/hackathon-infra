@@ -11,18 +11,26 @@ resource "google_sql_database_instance" "playlist" {
   settings {
     tier = "db-f1-micro"
   }
-   provisioner "local-exec" {
-    command = "PGPASSWORD=123456 psql -f playlist.sql -p 3306 -U root playlist-instance"
+   #provisioner "local-exec" {
+   # command = "mysql --host=${module.db.this_db_instance_address} --port=${var.dbport} --user=${var.dbusername} --password=${var.dbpassword} --database=${var.dbname} < ${file(${path.module}/init/db_structure.sql)}"
+  #}
+    provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y",
+      "sudo yum install mysql -y",
+      "export PASSWORD=`openssl rand -base64 32`; echo \"Root password is : $PASSWORD\"",
+      "echo \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$PASSWORD'\" \  | sudo mysql -u root",
+      "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"CREATE USER 'playuser'@'%' IDENTIFIED BY '123456';\"",
+      "mysql -h 127.0.0.1 -P 3306 -u root -p$PASSWORD -e \"GRANT ALL PRIVILEGES ON *.* TO 'playuser'@'%' WITH GRANT OPTION;\"",
+      "mysql -h 127.0.0.1 -P 3306 -u playuser -p123456 < /opt/app/Playlist.sql"
+    ]
   }
+
   root_password = "123456"
   deletion_protection  = "false"
 }
 
-resource "google_sql_user" "users" {
-  name     = "playuser"
-  instance = google_sql_database_instance.playlist.name
-  password = "123456"
-}
+
 
 resource "google_artifact_registry_repository" "hackthon" {
   provider = google-beta
